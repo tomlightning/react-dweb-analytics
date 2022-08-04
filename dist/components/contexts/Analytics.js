@@ -23,7 +23,7 @@ const AnalyticsContext = /*#__PURE__*/React.createContext();
 function AnalyticsContextProvider(_ref) {
   let {
     children,
-    topic = 'ESTEROIDS_ANALYTICS',
+    topic = 'ANALYTICS',
     ipfsNodeUrl = process.env.REACT_APP_IPFS_NODE
   } = _ref;
   const analytics = (0, _useAnalytics.default)({
