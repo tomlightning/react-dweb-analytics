@@ -1,3 +1,6 @@
+Version 0.0.2
+
+
 # How to use
 
 ## Setup 
@@ -16,11 +19,11 @@
     
     .........
 
-    const analytics = useAnalyticsContext()
+    const addEvent = useAnalyticsContext()
 
     ......
 
     const eType = 'event-type'
     const meta = {}
-    analytics.add({eType, meta});
+    addEvent({eType, meta});
 

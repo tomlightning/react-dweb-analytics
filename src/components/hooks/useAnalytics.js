@@ -63,9 +63,9 @@ function useAnalytics({ipfsNodeUrl, topic}) {
               });
           });
       }
-    }, [stats, ipfsObj.isIpfsReady]);
+    }, [stats, ipfsObj.isIpfsReady, topic]);
   
-    const add = useCallback((analyticsEvent) => {
+    const addEvent = useCallback((analyticsEvent) => {
       pending.current.push(analyticsEvent);
       setStats(stats => {
         return {
@@ -75,7 +75,7 @@ function useAnalytics({ipfsNodeUrl, topic}) {
       });
     }, []);
   
-    return { add };
+    return { addEvent };
   }
   
   export default useAnalytics;

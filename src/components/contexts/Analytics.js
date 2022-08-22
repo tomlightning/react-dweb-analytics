@@ -7,12 +7,12 @@ const AnalyticsContext = React.createContext();
 
 function AnalyticsContextProvider({ children, topic='ANALYTICS', ipfsNodeUrl=process.env.REACT_APP_IPFS_NODE }) {
 
-  const analytics = useAnalytics({ipfsNodeUrl, topic})
+  const {addEvent} = useAnalytics({ipfsNodeUrl, topic})
 
 
 
   return (
-    <AnalyticsContext.Provider value={analytics}>
+    <AnalyticsContext.Provider value={addEvent}>
         {children}
     </AnalyticsContext.Provider>
   );

@@ -30,7 +30,7 @@ export default function useIpfsFactory (ipfsHttpNode) {
         setIpfsReady(false)
       }
     }
-  }, [])
+  }, [ipfsHttpNode])
 
   async function startIpfs (ipfsHttpNode) {
     if (ipfs) {
