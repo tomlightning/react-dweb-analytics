@@ -1,55 +1,39 @@
 {
   "name": "react_dweb_analytics",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
-  "author": "tomlightning",
-  "keywords": ["react", "dweb", "analytics"],
-  "private": false,
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "files": [ "dist", "README.md" ],
-  "repository": {
-      "type": "git",
-      "url": "git+https://github.com/tomlightning/react_dweb_analytics.git"
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
+    "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\""
   },
-  "dependencies": {
-    "@babel/polyfill": "^7.12.1",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "ipfs-http-client": "^56.0.3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomlightning/react_dweb_analytics.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomlightning/react_dweb_analytics/issues"
+  },
+  "homepage": "https://github.com/tomlightning/react_dweb_analytics#readme",
+  "devDependencies": {
+    "@types/react": "^18.0.18",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.6",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "typescript": "^4.8.2"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "babel src --out-dir dist --copy-files",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.18.10",
-    "@babel/preset-env": "^7.18.10"
+  "dependencies": {
+    "ipfs-http-client": "^57.0.3"
   }
 }
