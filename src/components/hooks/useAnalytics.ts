@@ -61,7 +61,11 @@ export const useAnalytics = (opts: QueueOpts): Queue => {
           inFlight: true,
         };
       });
-      const result = sendEvents(ipfsObj.ipfs, analyticsEvents, topic);
+      const result = sendEvents(
+        ipfsObj.ipfs as IPFSHTTPClient,
+        analyticsEvents,
+        topic
+      );
       result
         .then(() => {
           inFlight.current = false;

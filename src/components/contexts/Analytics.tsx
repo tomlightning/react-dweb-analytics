@@ -10,11 +10,7 @@ interface AnalyticsProviderProps {
   children: JSX.Element;
 }
 
-export interface AnalyticsContextInterface {
-  addEvent: AnalyticsAddCallbackType;
-}
-
-const AnalyticsContext = React.createContext<AnalyticsContextInterface | null>(
+const AnalyticsContext = React.createContext<AnalyticsAddCallbackType | null>(
   null
 );
 

@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { create } from "ipfs-http-client";
 import type { IPFSHTTPClient } from "ipfs-http-client";
 
-let ipfs: IPFSHTTPClient | null = null;
+let ipfsGlobal: IPFSHTTPClient | null = null;
 
 export interface IpfsFactoryInterface {
-  ipfs: IPFSHTTPClient | null;
+  ipfs: IPFSHTTPClient;
   isIpfsReady: boolean;
   ipfsInitError: Error | null;
 }
@@ -23,8 +23,8 @@ export interface IpfsFactoryInterface {
 export default function useIpfsFactory(
   ipfsHttpNodeUrl: string
 ): IpfsFactoryInterface {
-  const [isIpfsReady, setIpfsReady] = useState(Boolean(ipfs));
-  const [ipfsInitError, setIpfsInitError] = useState(null);
+  const [isIpfsReady, setIpfsReady] = useState<boolean>(Boolean(ipfsGlobal));
+  const [ipfsInitError, setIpfsInitError] = useState<Error | null>(null);
 
   useEffect(() => {
     // The fn to useEffect should not return anything other than a cleanup fn,
@@ -33,27 +33,27 @@ export default function useIpfsFactory(
 
     startIpfs(ipfsHttpNodeUrl);
     return function cleanup() {
-      if (ipfs && ipfs.stop) {
-        ipfs.stop().catch((err) => console.error(err));
-        ipfs = null;
+      if (ipfsGlobal && ipfsGlobal.stop) {
+        ipfsGlobal.stop().catch((err: Error) => console.error(err));
+        ipfsGlobal = null;
         setIpfsReady(false);
       }
     };
   }, [ipfsHttpNodeUrl]);
 
-  async function startIpfs(ipfsHttpNodeUrl: string) {
-    if (!ipfs) {
+  async function startIpfs(ipfsHttpNodeUrl: string):Promise<void> {
+    if (!ipfsGlobal) {
       try {
-        ipfs = create({ url: ipfsHttpNodeUrl });
+        ipfsGlobal = create({ url: ipfsHttpNodeUrl });
       } catch (error) {
-        ipfs = null;
-        setIpfsInitError(error);
+        ipfsGlobal = null;
+        setIpfsInitError(error as Error);
         console.error(error);
       }
     }
 
-    setIpfsReady(Boolean(ipfs));
+    setIpfsReady(Boolean(ipfsGlobal));
   }
 
-  return { ipfs, isIpfsReady, ipfsInitError };
+  return { ipfs: ipfsGlobal as IPFSHTTPClient, isIpfsReady, ipfsInitError };
 }
