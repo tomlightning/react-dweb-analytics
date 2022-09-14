@@ -41,7 +41,7 @@ export default function useIpfsFactory(
     };
   }, [ipfsHttpNodeUrl]);
 
-  async function startIpfs(ipfsHttpNodeUrl: string):Promise<void> {
+  async function startIpfs(ipfsHttpNodeUrl: string): Promise<void> {
     if (!ipfsGlobal) {
       try {
         ipfsGlobal = create({ url: ipfsHttpNodeUrl });
