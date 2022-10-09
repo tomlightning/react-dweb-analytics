@@ -5,13 +5,21 @@ import { useAnalytics } from "../hooks/useAnalytics";
 import type { AnalyticsAddCallbackType } from "../hooks/useAnalytics";
 
 interface AnalyticsProviderProps {
-  topic: string;
-  ipfsNodeUrl: string;
+  projectId: string;
   children: JSX.Element;
 }
 
-const AnalyticsContext = React.createContext<AnalyticsAddCallbackType | null>(
-  null
+// interface AnalyticsProviderProps {
+//   projectId: string;
+//   children: JSX.Element[];
+// }
+
+interface IAnalyticsContext {
+  addEvent: AnalyticsAddCallbackType;
+}
+
+const AnalyticsContext = React.createContext<IAnalyticsContext | undefined>(
+  undefined
 );
 
 /*
@@ -22,11 +30,11 @@ const AnalyticsContext = React.createContext<AnalyticsAddCallbackType | null>(
 }
 */
 const AnalyticsContextProvider = (props: AnalyticsProviderProps) => {
-  const { children, topic, ipfsNodeUrl } = props;
-  const { addEvent } = useAnalytics({ ipfsNodeUrl, topic });
+  const { children, projectId } = props;
+  const { addEvent } = useAnalytics({ projectId });
 
   return (
-    <AnalyticsContext.Provider value={addEvent}>
+    <AnalyticsContext.Provider value={{ addEvent }}>
       {children}
     </AnalyticsContext.Provider>
   );

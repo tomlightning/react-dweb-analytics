@@ -4,15 +4,22 @@ exports.useAnalytics = void 0;
 var tslib_1 = require("tslib");
 var react_1 = require("react");
 var useIpfsFactory_1 = tslib_1.__importDefault(require("./useIpfsFactory"));
-var sendEvents = function (ipfs, events, topic) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
+var ipfsNodeUrl = process.env.REACT_APP_IPFS_NODE;
+var sendEvents = function (ipfs, events, projectId) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
     var msg;
     return tslib_1.__generator(this, function (_a) {
         msg = new TextEncoder().encode(JSON.stringify(events));
-        return [2 /*return*/, ipfs.pubsub.publish(topic, msg)];
+        try {
+            return [2 /*return*/, ipfs.pubsub.publish(projectId, msg)];
+        }
+        catch (error) {
+            console.log(error);
+        }
+        return [2 /*return*/];
     });
 }); };
 var useAnalytics = function (opts) {
-    var ipfsNodeUrl = opts.ipfsNodeUrl, topic = opts.topic;
+    var projectId = opts.projectId;
     var ipfsObj = (0, useIpfsFactory_1["default"])(ipfsNodeUrl);
     var inFlight = (0, react_1.useRef)(false);
     var pending = (0, react_1.useRef)([]);
@@ -28,7 +35,7 @@ var useAnalytics = function (opts) {
             setStats(function (stats) {
                 return tslib_1.__assign(tslib_1.__assign({}, stats), { numPending: stats.numPending - analyticsEvents.length, inFlight: true });
             });
-            var result = sendEvents(ipfsObj.ipfs, analyticsEvents, topic);
+            var result = sendEvents(ipfsObj.ipfs, analyticsEvents, projectId);
             result
                 .then(function () {
                 inFlight.current = false;
@@ -47,12 +54,9 @@ var useAnalytics = function (opts) {
             ipfsObj.isIpfsReady) {
             _loop_1();
         }
-    }, [stats, ipfsObj.isIpfsReady, topic]);
+    }, [stats, ipfsObj.isIpfsReady, projectId]);
     var addEvent = (0, react_1.useCallback)(function (analyticsEvent) {
         pending.current.push(analyticsEvent);
-        setStats(function (stats) {
-            return tslib_1.__assign(tslib_1.__assign({}, stats), { numPending: stats.numPending + 1 });
-        });
     }, []);
     return { addEvent: addEvent };
 };

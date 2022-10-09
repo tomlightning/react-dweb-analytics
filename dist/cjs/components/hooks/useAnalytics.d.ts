@@ -11,8 +11,7 @@ interface Queue {
     addEvent: AnalyticsAddCallbackType;
 }
 interface QueueOpts {
-    ipfsNodeUrl: string;
-    topic: string;
+    projectId: string;
 }
 export declare const useAnalytics: (opts: QueueOpts) => Queue;
 export {};

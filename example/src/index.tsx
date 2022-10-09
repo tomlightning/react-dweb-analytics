@@ -1,27 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { AnalyticsContextProvider, useAnalyticsContext } from "react-dweb-analytics";
+import {
+  AnalyticsContextProvider,
+  useAnalyticsContext,
+} from "react-dweb-analytics";
+import { useEffect } from "react";
 
+const CallEvent = () => {
+  const analytics = useAnalyticsContext();
 
-
-const CallEvent = () =>{
-    const add = useAnalyticsContext()
-
-    const eType = 'page'
-    if(add){
-      add({eType, meta: []});
+  useEffect(() => {
+    const eType = "page";
+    if (analytics.addEvent) {
+      analytics.addEvent({ eType, meta: [] });
     }
-    
+  }, []);
 
-    return (<></>)
-}
+  return <></>;
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <AnalyticsContextProvider topic="testApp" ipfsNodeUrl="test_url">
+    <AnalyticsContextProvider projectId="ESTEROIDS_ANALYTICS">
       <>
         <div>
           <h2>Calling Event</h2>

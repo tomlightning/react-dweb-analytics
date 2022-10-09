@@ -19,21 +19,27 @@ interface Queue {
 }
 
 interface QueueOpts {
-  ipfsNodeUrl: string;
-  topic: string;
+  projectId: string;
 }
+
+const ipfsNodeUrl = process.env.REACT_APP_IPFS_NODE as string;
 
 const sendEvents = async (
   ipfs: IPFSHTTPClient,
   events: AnalyticsEventType[],
-  topic: string
+  projectId: string
 ) => {
   const msg: Uint8Array = new TextEncoder().encode(JSON.stringify(events));
-  return ipfs.pubsub.publish(topic, msg);
+  try {
+    return ipfs.pubsub.publish(projectId, msg);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const useAnalytics = (opts: QueueOpts): Queue => {
-  const { ipfsNodeUrl, topic } = opts;
+  const { projectId } = opts;
+
   const ipfsObj = useIpfsFactory(ipfsNodeUrl);
 
   const inFlight = useRef(false);
@@ -64,7 +70,7 @@ export const useAnalytics = (opts: QueueOpts): Queue => {
       const result = sendEvents(
         ipfsObj.ipfs as IPFSHTTPClient,
         analyticsEvents,
-        topic
+        projectId
       );
       result
         .then(() => {
@@ -88,17 +94,11 @@ export const useAnalytics = (opts: QueueOpts): Queue => {
           });
         });
     }
-  }, [stats, ipfsObj.isIpfsReady, topic]);
+  }, [stats, ipfsObj.isIpfsReady, projectId]);
 
   const addEvent = useCallback<AnalyticsAddCallbackType>(
     (analyticsEvent: AnalyticsEventType) => {
       pending.current.push(analyticsEvent);
-      setStats((stats) => {
-        return {
-          ...stats,
-          numPending: stats.numPending + 1,
-        };
-      });
     },
     []
   );

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useAnalytics } from "../hooks/useAnalytics";
-var AnalyticsContext = React.createContext(null);
+var AnalyticsContext = React.createContext(undefined);
 /*
 {
   children,
@@ -9,9 +9,9 @@ var AnalyticsContext = React.createContext(null);
 }
 */
 var AnalyticsContextProvider = function (props) {
-    var children = props.children, topic = props.topic, ipfsNodeUrl = props.ipfsNodeUrl;
-    var addEvent = useAnalytics({ ipfsNodeUrl: ipfsNodeUrl, topic: topic }).addEvent;
-    return (React.createElement(AnalyticsContext.Provider, { value: addEvent }, children));
+    var children = props.children, projectId = props.projectId;
+    var addEvent = useAnalytics({ projectId: projectId }).addEvent;
+    return (React.createElement(AnalyticsContext.Provider, { value: { addEvent: addEvent } }, children));
 };
 var useAnalyticsContext = function () {
     var context = React.useContext(AnalyticsContext);

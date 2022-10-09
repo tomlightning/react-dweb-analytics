@@ -3,18 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "parcel src/index.html"
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html"
   },
   "devDependencies": {
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "parcel": "^2.7.0",
+    "parcel-bundler": "^1.12.5",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "ipfs-http-client": "^58.0.0",
-    "react-dweb-analytics": "^0.0.3"
+    "react-dweb-analytics": "^0.0.7"
   }
 }
