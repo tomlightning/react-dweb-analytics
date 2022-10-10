@@ -4,7 +4,7 @@ exports.useAnalytics = void 0;
 var tslib_1 = require("tslib");
 var react_1 = require("react");
 var useIpfsFactory_1 = tslib_1.__importDefault(require("./useIpfsFactory"));
-var ipfsNodeUrl = process.env.REACT_APP_IPFS_NODE;
+var ipfsNodeUrl = "https://ipfs2.dwebservices.xyz:8080/api/v0";
 var sendEvents = function (ipfs, events, projectId) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
     var msg;
     return tslib_1.__generator(this, function (_a) {

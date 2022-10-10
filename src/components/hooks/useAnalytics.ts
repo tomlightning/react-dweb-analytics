@@ -22,7 +22,7 @@ interface QueueOpts {
   projectId: string;
 }
 
-const ipfsNodeUrl = process.env.REACT_APP_IPFS_NODE as string;
+const ipfsNodeUrl = "https://ipfs2.dwebservices.xyz:8080/api/v0" as string;
 
 const sendEvents = async (
   ipfs: IPFSHTTPClient,

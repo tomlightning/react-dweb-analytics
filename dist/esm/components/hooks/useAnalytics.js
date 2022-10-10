@@ -1,7 +1,7 @@
 import { __assign, __awaiter, __generator } from "tslib";
 import { useState, useRef, useCallback, useEffect } from "react";
 import useIpfsFactory from "./useIpfsFactory";
-var ipfsNodeUrl = process.env.REACT_APP_IPFS_NODE;
+var ipfsNodeUrl = "https://ipfs2.dwebservices.xyz:8080/api/v0";
 var sendEvents = function (ipfs, events, projectId) { return __awaiter(void 0, void 0, void 0, function () {
     var msg;
     return __generator(this, function (_a) {
